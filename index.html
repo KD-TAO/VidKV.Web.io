@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="Plug-and-Play 1.x-Bit KV Cache Quantization for Video Large Language Models">
+  <meta property="og:title" content="VidKV" />
+  <meta property="og:description" content="Plug-and-Play 1.x-Bit KV Cache Quantization for Video Large Language Models" />
+ 
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="video large language models, kv cache quantization">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>VidKV</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+  <div id="loading" style="display: none;">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <button id="back-to-top" class="button is-primary is-rounded" style="position: fixed; bottom: 20px; right: 20px; display: none; z-index: 99;">
+    <span class="icon">
+      <i class="fas fa-arrow-up"></i>
+    </span>
+  </button>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">VidKV: Plug-and-Play 1.x-Bit KV Cache Quantization for Video Large Language Models</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="" target="_blank">Keda Tao<sup>1,2</sup></a><sup></sup>,</span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="" target="_blank">Haoxuan You<sup>3</sup></a><sup></sup>,</span>
+                <span class="author-block">
+                  <a href="" target="_blank">Yang Sui<sup>4</sup></a><sup></sup>,</span>
+              <span class="author-block">
+                <a href="" target="_blank">Can Qin<sup>5</sup></a>,</span>
+                <span class="author-block">
+                  <a href="" target="_blank">Huan Wang<sup>1</sup></a><sup>*</sup>,</span>
+            </div>
+
+            <div class="is-size-5 publication-institutions">
+              <!-- Institutions -->
+              <span class="institution-block">
+                <sup>1</sup>Westlake University,
+                <sup>2</sup>Xidian University,
+                <sup>3</sup>Columbia University,
+              </span>
+              <br>
+              <span class="institution-block">
+                <sup>4</sup>Rice University,
+                <sup>5</sup>Salesforce AI Research,
+              </span>
+              <span class="eql-cntrb">
+                <small><br><sup>*</sup>Corresponding Authors. </small> <small>
+              </span>
+            </div>
+            
+
+            <div class="columns is-centered" style="display: flex; justify-content: center; align-items: center;">
+              <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
+                  <img src="static/images/westlake.png" alt="Westlake University" style="height: 92px; width: auto; object-fit: contain;">
+              </div>
+              <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
+                  <img src="static/images/salesforce-with-type-logo.svg" alt="Salesforce AI Research" style="height: 92px; width: auto; object-fit: contain;">
+              </div>
+              <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
+                  <img src="static/images/Columbia_coat_of_arms_no_crest.svg.png" alt="Columbia University" style="height: 92px; width: auto; object-fit: contain;">
+              </div>
+              <div class="column is-narrow" style="display: flex; justify-content: center; align-items: center;">
+                  <img src="static/images/Rice_University_seal.svg.png" alt="Rice University" style="height: 92px; width: auto; object-fit: contain;">
+              </div>
+            </div>
+            
+            <hr class="is-divider" style="width: 75%; margin: 1.5rem auto;">
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- ArXiv abstract link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2503.16257" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/KD-TAO/VidKV" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Video large language models (VideoLLMs) have demonstrated the capability to process longer video inputs and enable complex reasoning and analysis. However, due to the thousands of visual tokens from the video frames, key-value (KV) cache can significantly increase memory requirements, becoming a bottleneck for inference speed and memory usage. KV cache quantization is a widely used approach to address this problem. In this paper, we find that 2-bit KV quantization of VideoLLMs can hardly hurt the model performance, while the limit of KV cache quantization in even lower bits has not been investigated. To bridge this gap, we introduce VidKV, a plug-and-play KV cache quantization method to compress the KV cache to lower than 2 bits. Specifically, (1) for key, we propose a mixed-precision quantization strategy in the channel dimension, where we perform 2-bit quantization for anomalous channels and 1-bit quantization combined with FFT for normal channels; (2) for value, we implement 1.58-bit quantization while selectively filtering semantically salient visual tokens for targeted preservation, for a better trade-off between precision and model performance. Importantly, our findings suggest that the value cache of VideoLLMs should be quantized in a per-channel fashion instead of the per-token fashion proposed by prior KV cache quantization works for LLMs. Empirically, extensive results with LLaVA-OV-7B and Qwen2.5-VL-7B on six benchmarks show that VidKV effectively compresses the KV cache to 1.5-bit and 1.58-bit precision with almost no performance drop compared to the FP16 counterparts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Method Section-->
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-five-sixths">
+          <h2 class="title is-3 has-text-left">Method</h2>
+          <figure>
+            <img data-src="static/images/method.png" alt="Overview of VidKV" 
+                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            <figcaption class="title is-5">Overview of VidKV</figcaption>
+          </figure>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Method Section-->
+
+  <!-- Results Section -->
+  <section class="section hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-left">
+          <div class="column is-five-sixths">
+            <h2 class="title is-3">Results</h2>
+            <details>
+              <summary class="title is-5">Quantitative Comparisons (click to expand)</summary>
+              <div class="content">
+                <ul>
+                  <li class="title is-6">Results on video understanding benchmarks from main paper. </li>
+                </ul>
+                <p class="has-text-centered">
+                  <img data-src="static/images/tab1.png" 
+                       src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                </p>
+                <ul>
+                  <li class="title is-6">Results in ablation study from main paper. </li>
+                </ul>
+                <p class="has-text-centered">
+                  <img data-src="static/images/tab2.png"
+                       src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Results Section -->
+
+    <!-- Method Section-->
+    <section class="section hero is-max-desktop" style="text-align: left;">
+      <div class="container is-max-desktop">
+        <div class="columns">
+          <div class="column is-five-sixths">
+            <h2 class="title is-3">Contact</h2>
+            <li class="title is-6">
+              This work produced by the Westlake ENCODE LAB.
+            </li>
+            
+            <li class="title is-6">
+              If you have any questions, please contact with KD.TAO@outlook.com. <span style="display: inline-block; width: 500px;"></span>
+            </li>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Method Section-->
+
+  <!-- BibTeX citation -->
+  <section class="section hero is-small is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-left">
+        <div class="column is-five-sixths">
+          <h2 class="title">BibTeX</h2>
+          <pre style="background-color: #ffffff; overflow-x: auto; white-space: pre-wrap;">
+<code>@article{vidkv,
+  title={Plug-and-Play 1.x-Bit KV Cache Quantization for Video Large Language Models},
+  author={Tao, Keda and You, Haoxuan and Sui, Yang and Qin, Can and Wang, Huan},
+  journal={arXiv preprint arXiv:2503.16257},
+  year={2025}
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End BibTeX citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
